@@ -194,10 +194,10 @@ fun cos(x: Double, eps: Double): Double{
     var i = 0.0
     var s1 = 1.0
     while (abs(s/s1) >= abs(eps)) {
-        s1 = s1 * (i + 1) * (i + 2)
+        s1 = s1 * (i + 1.0) * (i + 2.0)
         s = s * x * x * (-1.0)
         a = a + s / s1
-        i = i + 2
+        i = i + 2.0
     }
     return a
 }
