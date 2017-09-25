@@ -208,20 +208,13 @@ fun cos(x: Double, eps: Double): Double{
  * Не использовать строки при решении задачи.
  */
 fun revert(n: Int): Int {
-    var i:Int=1
-    var k:Int
-    var b=n
-    var a:Int=0
-    var j:Int=0
-    while (n/i!=0){
-        i=i*10
-        j=j+1
+    var result=0
+    var number=n
+    while(number>0) {
+        result= (result*10)+number%10
+        number/=10
     }
-    for (k in 1..j){
-        a = a*10+ b % 10
-        b = (b - b % 10) / 10
-    }
-    return a
+    return result
 }
 /**
  * Средняя
@@ -231,23 +224,7 @@ fun revert(n: Int): Int {
  * 15751 -- палиндром, 3653 -- нет.
  */
 fun isPalindrome(n: Int): Boolean {
-
-    /*var i:Int=1
-    var k:Int
-    var b=n
-    var a:Int=0
-    var j:Int=0
-    while (n/i!=0){
-        i=i*10
-        j=j+1
-    }
-    i=i/10
-    j=j/2
-     while (b/i==b%10) {
-         b=(b-(b/i)*i-(b%10))/10
-        }
-
-    if (b<10)*/ if (n== revert(n))return true else return false
+    if (n== revert(n))return true else return false
 }
 
 /**

@@ -169,7 +169,7 @@ class Tests {
     @Test
     @Tag("Normal")
     fun revert() {
-        assertEquals(87431, revert(13478))
+        assertEquals(1810990181, revert(1810990181))
         assertEquals(0, revert(0))
         assertEquals(3, revert(3))
         assertEquals(111, revert(111))
@@ -182,7 +182,7 @@ class Tests {
     fun isPalindrome() {
         assertTrue(isPalindrome(3))
         assertFalse(isPalindrome(3653))
-        assertTrue(isPalindrome(15751))
+        assertTrue(isPalindrome(1810990181))
         assertTrue(isPalindrome(24688642))
     }
 
@@ -204,7 +204,7 @@ class Tests {
         assertEquals(5, squareSequenceDigit(7))
         assertEquals(6, squareSequenceDigit(12))
         assertEquals(0, squareSequenceDigit(17))
-        assertEquals(9, squareSequenceDigit(27))
+        assertEquals(6, squareSequenceDigit(361129))
     }
 
     @Test
