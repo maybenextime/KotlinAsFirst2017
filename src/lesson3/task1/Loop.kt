@@ -166,17 +166,21 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun sin(x: Double, eps: Double):Double{
-    var s:Double = x
-    var a:Double = x
-    var i=1.0
+    var s:Double
+    var a:Double=x
+    var i=1
     var s1=1.0
-    if (x==0.0) return 0.0
-    while (abs(s/s1) >= abs(eps)) {
-        s=s*x*x*(-1.0)
+    while (a>= 2*PI){
+        a=a-2* PI
+    }
+    s=a
+    var a1=a
+    if (a==0.0) return 0.0
+    while (abs(s/s1) > abs(eps)) {
+        s=s*a1*a1*(-1)
         s1=s1*(i+1.0)*(i+2.0)
-
-        a=a+ s/s1
-        i=i+2.0
+        a=a+s/s1
+        i=i+2
     }
         return a
 }
@@ -193,9 +197,15 @@ fun cos(x: Double, eps: Double): Double{
     var a: Double = 1.0
     var i = 0.0
     var s1 = 1.0
+    var a1:Double = x
+    while (a1>= 2*PI){
+        a1=a1-2* PI
+    }
+    s=a
+    if (x==0.0) return 1.0
     while (abs(s/s1) >= abs(eps)) {
-        s1 = s1 * (i + 1.0) * (i + 2.0)
-        s = s * x * x * (-1.0)
+        s1 = s1 * (i +  1.0) * (i + 2.0)
+        s = s * a1 * a1 * (-1.0)
         a = a + s / s1
         i = i + 2.0
     }
@@ -253,36 +263,21 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int{
-    var a:Int=1
-    var j:Int=1
-    var b:Int=3
-    var c:Int=n
-    var k:Int
-    var m:Int=1
-    if (n==1) return 1
-    if (n==2) return 4
-    if (n==3) return 9 else{
-    while (c-b*j>0) {
-        c=c-b*j
-        a=a*10
-        if (sqrt(a.toDouble ())-sqrt(a.toDouble()).toInt()>0) {
-            b= sqrt((a*10-1).toDouble()).toInt()- sqrt(a.toDouble()).toInt()}
-            else {b= sqrt((a*10-1).toDouble()).toInt()- sqrt(a.toDouble()).toInt()+1 }
-        j=j+1
-    }
+    var d: Int= 0
+    var f: Int
+    var a: Int
+    var i: Int= 0
+    while (d<n) {
+        i++
+        d+= digitNumber(i*i)
 
-    if (sqrt(a.toDouble())-sqrt(a.toDouble()).toInt()>0) {
-        if (c%j==0) {a= sqrt(a.toDouble()).toInt()+c/j } else {a= sqrt(a.toDouble()).toInt()+c/j+1}}
-    else { if (c%j==0) {a= sqrt(a.toDouble()).toInt() +c/j-1} else a= sqrt(a.toDouble()).toInt() +c/j}
-    if (c%j==0) {c=c} else c=c%j
-    a=a*a
-
-    for(k in 1..(j-c)) {
-        m = m * 10
     }
-    a=(a/m)%10
-    return a}
+    f= i*i
+    for (k in n.. d-1) {
+        f=f/10
     }
+    return f%10
+}
 
 /**
  * Сложная
@@ -292,22 +287,22 @@ fun squareSequenceDigit(n: Int): Int{
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var i:Int=1
-    var j:Int=1
-    var m:Int=1
-    var a:Int=0
-    var f:Int=0
+    var i: Int = 1
+    var j: Int = 1
+    var m: Int = 1
+    var a: Int = 0
+    var f: Int = 0
 
 
-    while (i<n) {
+    while (i < n) {
         j++
-        i=i + digitNumber(fib(j))
+        i = i + digitNumber(fib(j))
     }
-    f= fib(j)
-    for (k in 1..(i-n)) {
-        a =f%10
-        f=(f-a)/10
+    f = fib(j)
+    for (k in 1..(i - n)) {
+        a = f % 10
+        f = (f - a) / 10
     }
 
-    return f%10
+    return f % 10
 }
