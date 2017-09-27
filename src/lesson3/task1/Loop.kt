@@ -170,8 +170,11 @@ fun sin(x: Double, eps: Double):Double{
     var a:Double=x
     var i=1
     var s1=1.0
-    while (a>= 2*PI){
+    while ((a>0)&&(a>=2*PI)){
         a=a-2* PI
+    }
+    while ((a<0)&&(a<=-2*PI)) {
+        a=a+2* PI
     }
     s=a
     var a1=a
@@ -197,7 +200,8 @@ fun cos(x: Double, eps: Double): Double{
     var a: Double = 1.0
     var i = 0.0
     var s1 = 1.0
-    var a1:Double = x
+    var a1:Double
+    if (x>=0) {a1=x} else a1=-x
     while (a1>= 2*PI){
         a1=a1-2* PI
     }
