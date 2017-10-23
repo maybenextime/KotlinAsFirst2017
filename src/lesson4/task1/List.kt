@@ -265,6 +265,11 @@ fun convert(n: Int, base: Int): List<Int> {
     var av = mutableListOf<Int>()
     var n1 = n
     var t: Int
+    if (n==0) {
+        av.add(0)
+        return av
+    }
+
     while (n1 > 0) {
         av.add(n1 % base)
         n1 = n1 / base
@@ -290,6 +295,7 @@ fun convertToString(n: Int, base: Int): String {
     var list2 = mutableListOf<Char>()
     var n1 = n
     var t: Int
+    if (n == 0) return "0"
     while (n1 > 0) {
         list.add(n1 % base)
         n1 = n1 / base
@@ -367,12 +373,13 @@ fun roman(n: Int): String {
     var av: String =""
     for (i in 1..digitNumber(n))
     {
-        if (i==1){av = list1[n1%10] + av}
-        if (i==2){av = list2[n1%10] + av}
-        if (i==3){av = list3[n1%10] + av}
-        if (i==4){av = list4[n1%10] + av}
+        if (i == 1){av = list1[n1%10] + av}
+        if (i == 2){av = list2[n1%10] + av}
+        if (i == 3){av = list3[n1%10] + av}
+        if (i > 3)break
         n1 = n1/10
     }
+    for (i in 1..n1) {av= "M"+av}
     return av
 }
 /**
@@ -394,8 +401,8 @@ fun russian3(n: Int): MutableList<String>{
                                     "шестьсот","семьсот","восемьсот","девятьсот")
 
     if(n1%100 < 20) {
-        lstr1.add(list3[n1 / 100])
         lstr1.add(list12[n1 % 100])
+        lstr1.add(list3[n1 / 100])
     }
     else {
         for (i in 1..digitNumber(n))
@@ -407,6 +414,7 @@ fun russian3(n: Int): MutableList<String>{
         }
     }
     lstr1.remove(element = "")
+    lstr1.reverse()
     return lstr1
 }
 
@@ -427,16 +435,16 @@ fun russian(n: Int): String {
         } else {
             if (n2 % 100 >= 20) {
                 if (n2 % 10 == 1) {
-                    list.addAll(russian3(n1))
-                    list.add("одна тысяча")
                     list.addAll(russian3(n2-1))
-                    return list.reversed().joinToString(separator = " ")
+                    list.add("одна тысяча")
+                    list.addAll(russian3(n1))
+                    return list.joinToString(separator = " ")
                 }
                 if (n2 % 10 == 2) {
-                    list.addAll(russian3(n1))
-                    list.add("две тысячи")
                     list.addAll(russian3(n2-2))
-                    return list.reversed().joinToString(separator = " ")
+                    list.add("две тысячи")
+                    list.addAll(russian3(n1))
+                    return list.joinToString(separator = " ")
                 }
                 if ((n2 % 10 == 3) || (n2 % 10 == 4)) {
                     list.addAll(russian3(n2))
@@ -465,6 +473,6 @@ fun russian(n: Int): String {
             }
         }
     }
-    else return russian3(n1).reversed().joinToString (separator = " ")
+    else return russian3(n1).joinToString (separator = " ")
 }
 

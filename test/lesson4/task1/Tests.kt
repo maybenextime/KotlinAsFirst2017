@@ -208,7 +208,7 @@ class Tests {
     @Test
     @Tag("Hard")
     fun roman() {
-        assertEquals("I", roman(1))
+        assertEquals("MMMMMMMMMMMMMMDCCCXLVII", roman(14847))
         assertEquals("MMM", roman(3000))
         assertEquals("MCMLXXVIII", roman(1978))
         assertEquals("DCXCIV", roman(694))
@@ -218,7 +218,7 @@ class Tests {
     @Test
     @Tag("Impossible")
     fun russian() {
-        assertEquals("триста семьдесят пять", russian(375))
+        assertEquals("триста семьдесят пять", russian(783143))
         assertEquals("двадцать две тысячи девятьсот шестьдесят четыре", russian(22964))
         assertEquals("сто девятнадцать тысяч пятьсот восемь", russian(119508))
         assertEquals("две тысячи три", russian(2003))
