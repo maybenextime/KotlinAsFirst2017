@@ -423,14 +423,18 @@ fun russian(n: Int): String {
     var n1 = n%1000
     var n2 = n/1000
     if (n2 != 0) {
-        if (n2 == 1) {
-            list.add("тысяча")
-            list = russian3(n1)
+        if (n2 % 100 == 1) {
+            list.addAll(russian3(n2-1))
+            list.add("одна тысяча")
+            list.addAll(russian3(n1))
+            list.remove("")
             return list.joinToString(separator = " ")
         }
-        if (n2 == 2) {
+        if (n2 % 100 == 2) {
+            list.addAll(russian3(n2-2))
             list.add("две тысячи")
             list.addAll(russian3(n1))
+            list.remove("")
             return list.joinToString(separator = " ")
         } else {
             if (n2 % 100 >= 20) {
