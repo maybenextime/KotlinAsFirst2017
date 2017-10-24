@@ -35,13 +35,17 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if ((age>=11) && (((age-11)%100==0) || ((age-12)%100==0) || ((age-13)%100==0) ||((age-14)%100==0))) { return "$age лет"}
-    else {
-        if ((age-1)%10==0) return "$age год"
-        if (((age-2)%10==0) ||  ((age-3)%10==0) || ((age-4)%10==0)){return "$age года"}
-        else { return "$age лет"}}
-
+    if ((age >= 11) && (((age - 11) % 100 == 0) ||
+            ((age - 12) % 100 == 0) || ((age - 13) % 100 == 0) || ((age - 14) % 100 == 0))) {
+        return "$age лет"
+    } else {
+        return when {
+            ((age - 1) % 10 == 0) -> "$age год"
+            (((age - 2) % 10 == 0) || ((age - 3) % 10 == 0) || ((age - 4) % 10 == 0)) -> "$age года"
+            else -> "$age лет"
+        }
     }
+}
 
 /**
  * Простая
@@ -53,12 +57,13 @@ fun ageDescription(age: Int): String {
 fun timeForHalfWay(t1: Double, v1: Double,
                        t2: Double, v2: Double,
                        t3: Double, v3: Double): Double {
-    val S = (v1*t1 + v2*t2 + v3*t3)
-    if (v1*t1 >= S/2) {return (S/2 / v1)}
-    if ((v1*t1 < S/2) && (S/2 <= v1*t1 + v2*t2)) {return (t1 + (S/2 - v1*t1) / v2)}
-    else return (t1 + t2 + (S/2 - v1*t1 - v2*t2) / v3)
+    val s = (v1 * t1 + v2 * t2 + v3 * t3)
+    return when {
+        v1 * t1 >= s / 2 -> (s / 2 / v1)
+        ((v1 * t1 < s / 2) && (s / 2 <= v1 * t1 + v2 * t2)) -> (t1 + (s / 2 - v1 * t1) / v2)
+        else -> t1 + t2 + (s / 2 - v1 * t1 - v2 * t2) / v3
+    }
 }
-
 
 /**
  * Простая
@@ -72,18 +77,12 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    if (((rookX1==kingX) || (rookY1==kingY)) && ((rookX2==kingX) || (rookY2==kingY))) return 3 else {
-        if ((rookX1 == kingX) || (rookY1 == kingY)) {
-            return 1
-        }
-        else {
-            if ((rookX2 == kingX) || (rookY2 == kingY)) {
-                return 2
-            } else {
-                return 0
+    return when {
+        (((rookX1 == kingX) || (rookY1 == kingY)) && ((rookX2 == kingX) || (rookY2 == kingY))) -> 3
+        ((rookX1 == kingX) || (rookY1 == kingY)) -> 1
+        ((rookX2 == kingX) || (rookY2 == kingY)) -> 2
+        else -> 0
             }
-        }
-    }
 }
 
 /**

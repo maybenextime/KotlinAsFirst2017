@@ -18,12 +18,12 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean{
-    val n1= floorDiv(number,1000)
-    val n2= floorDiv(number-1000*n1,100)
-    val n3= floorDiv(number-1000*n1-100*n2,10)
-    val n4=number-1000*n1-100*n2-10*n3
-    if (n1+n2==n3+n4) return true else return false
+fun isNumberHappy(number: Int): Boolean {
+    val n1 = number / 1000
+    val n2 = (number - 1000 * n1) / 100
+    val n3 = (number - 1000 * n1 - 100 * n2) / 10
+    val n4 = number - 1000 * n1 - 100 * n2 - 10 * n3
+    return (n1 + n2 == n3 + n4)
 }
 
 /**
@@ -34,7 +34,7 @@ fun isNumberHappy(number: Int): Boolean{
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    if ((x1==x2)||(y1==y2)||( abs(x1-x2)== abs(y1-y2))) return true else return false
+    return ((x1 == x2) || (y1 == y2) || ( abs(x1 - x2) == abs(y1 - y2)))
 }
 
 /**
@@ -61,9 +61,9 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  *
  */
 fun min(a:Int,b:Int,c: Int):Int{
-    var m=a
-    if (m>b) {m=b}
-    if (m>c) {m=c}
+    var m = a
+    if (m > b) {m = b}
+    if (m > c) {m = c}
     return m
 }
 fun max(a:Int,b:Int,c: Int):Int {
@@ -77,16 +77,16 @@ fun max(a:Int,b:Int,c: Int):Int {
     return m
 }
 fun cp(a:Int,b:Int,c:Int):Int{
-    if((a!=b)&&(b!=c)&&(c!=a)){
-        if ((a!=min(a,b,c))&&(a!=max(a,b,c))) return a
+    if((a != b) && (b != c) && (c != a)){
+        if ((a != min(a,b,c)) && (a != max(a,b,c))) return a
         else{
-            if ((b!=min(a,b,c))&&(b!=max(a,b,c))) return b
+            if ((b != min(a,b,c))&&(b != max(a,b,c))) return b
             else return c
     }
     }
-    if((a==b)&&((b==min(a,b,c))||(b==max(a,b,c)))) return a
+    if((a == b) && ((b ==min(a,b,c)) || (b == max(a,b,c)))) return a
     else{
-        if((b==c)&&((c==min(a,b,c))||(c==max(a,b,c)))) return b
+        if((b == c) && ((c == min(a,b,c)) || (c == max(a,b,c)))) return b
         else return c
 
     }

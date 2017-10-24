@@ -113,7 +113,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var t:Double = 0.0
+    var t = 0.0
     if (v.size == 0) return 0.0
     for (i in 0..v.size - 1 ) {
         t +=  sqr(v[i])
@@ -127,7 +127,7 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    var result:Double = 0.0
+    var result = 0.0
     if (list.size == 0) return 0.0
     for (i in 0.. list.size - 1) { result += list[i]}
     return result / list.size
@@ -142,7 +142,7 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    var m = mean(list)
+    val m = mean(list)
     for (i in 0 .. list.size - 1){
         list[i] = list[i] - m
     }
@@ -159,7 +159,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Double>, b: List<Double>): Double {
     var result = 0.0
     if (a.size * b.size == 0) return 0.0
-    for (i in 0.. min(a.size-1,b.size-1)){
+    for (i in 0.. min(a.size - 1,b.size - 1)){
         result += a[i] * b[i]
     }
     return result
@@ -204,8 +204,8 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
     }
     for ( i in list.size-1 downTo 1) {
         list[i] = sum
-        sum = sum -a
-        a = list[i-1]
+        sum = sum - a
+        a = list[i - 1]
     }
     return list
 }
@@ -218,7 +218,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
     var av = n
     var i = 2
     if (isPrime(n) == true) {
@@ -262,7 +262,7 @@ fun factorizeToString(n: Int): String {
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    var av = mutableListOf<Int>()
+    val av = mutableListOf<Int>()
     var n1 = n
     var t: Int
     if (n==0) {
@@ -291,8 +291,8 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    var list = mutableListOf<Int>()
-    var list2 = mutableListOf<Char>()
+    val list = mutableListOf<Int>()
+    val list2 = mutableListOf<Char>()
     var n1 = n
     var t: Int
     if (n == 0) return "0"
@@ -300,15 +300,15 @@ fun convertToString(n: Int, base: Int): String {
         list.add(n1 % base)
         n1 = n1 / base
     }
-    for (i in 0 .. (list.size-1)/2){
+    for (i in 0 .. (list.size - 1) / 2){
         t = list[i]
-        list[i] = list[ list.size - 1 -i ]
+        list[i] = list[ list.size - 1 - i ]
         list[list.size - 1 - i] = t
     }
-    for (i in 0..list.size-1){
-        if (list[i]>=10 && list[i]<=36) {
-            list2.add((list[i]+87).toChar())
-        } else list2.add((list[i]+48).toChar())
+    for (i in 0..list.size - 1){
+        if (list[i] >= 10 && list[i] <= 36) {
+            list2.add((list[i] + 87).toChar())
+        } else list2.add((list[i] + 48).toChar())
         }
     return list2.joinToString (separator = "")
 }
@@ -323,9 +323,9 @@ fun convertToString(n: Int, base: Int): String {
 fun decimal(digits: List<Int>, base: Int): Int {
     var result = digits[0]
     if (digits.size == 1 ) return digits[0]
-    for (i in 1..digits.size-1){
+    for (i in 1..digits.size - 1){
 
-        result = result*base+digits[i]
+        result = result * base + digits[i]
     }
     return result
 }
@@ -340,8 +340,8 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var listch = str.toCharArray()
-    var listint = mutableListOf<Int>()
+    val listch = str.toCharArray()
+    val listint = mutableListOf<Int>()
     var av = 0.0
     var j=0.0
     for (i in 0..listch.size-1) {
@@ -365,12 +365,10 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun roman(n: Int): String {
     var n1 = n
-    var i : Int
-    var list1: List<String> = listOf("","I","II","III","IV","V","VI","VII","VIII","IX")
-    var list2: List<String> = listOf("","X","XX","XXX","XL","L","LX","LXX","LXXX","XC")
-    var list3: List<String> = listOf("","C","CC","CCC","CD","D","DC","DCC","DCCC","CM")
-    var list4: List<String> = listOf("","M","MM","MMM","MMMM","MMMMM","MMMMMM","MMMMMMM","MMMMMMMM","MMMMMMMMM")
-    var av: String =""
+    val list1: List<String> = listOf("","I","II","III","IV","V","VI","VII","VIII","IX")
+    val list2: List<String> = listOf("","X","XX","XXX","XL","L","LX","LXX","LXXX","XC")
+    val list3: List<String> = listOf("","C","CC","CCC","CD","D","DC","DCC","DCCC","CM")
+    var av =""
     for (i in 1..digitNumber(n))
     {
         if (i == 1){av = list1[n1%10] + av}
@@ -390,14 +388,14 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian3(n: Int): MutableList<String>{
-    var lstr1  = mutableListOf<String>()
+    val lstr1  = mutableListOf<String>()
     var n1 = n
-    var list12: List<String> = listOf("","один","два","три","четыре","пять","шесть","семь","восемь","девять","десять",
+    val list12: List<String> = listOf("","один","два","три","четыре","пять","шесть","семь","восемь","девять","десять",
                                     "одиннадцать","двенадцать","тринадцать","четырнадцать","пятьнадцать","шестнадцать",
                                     "семнадцать","восемнадцать","девятнадцать")
-    var list2: List<String> = listOf("","","двадцать","тридцать","сорок","пятьдесят",
+    val list2: List<String> = listOf("","","двадцать","тридцать","сорок","пятьдесят",
                                     "шестьдесят","семьдесят","восемьдесят","девяносто")
-    var list3: List<String> = listOf("","сто","двести","триста","четыреста","пятьсот",
+    val list3: List<String> = listOf("","сто","двести","триста","четыреста","пятьсот",
                                     "шестьсот","семьсот","восемьсот","девятьсот")
 
     if(n1%100 < 20) {
@@ -407,10 +405,10 @@ fun russian3(n: Int): MutableList<String>{
     else {
         for (i in 1..digitNumber(n))
         {
-            if (i==1){lstr1.add(list12[n1 % 10])}
-            if (i==2){lstr1.add(list2[n1 % 10])}
-            if (i==3){lstr1.add(list3[n1 % 10])}
-            n1 = n1/10
+            if (i == 1){lstr1.add(list12[n1 % 10])}
+            if (i == 2){lstr1.add(list2[n1 % 10])}
+            if (i == 3){lstr1.add(list3[n1 % 10])}
+            n1 = n1 / 10
         }
     }
     lstr1.remove(element = "")
@@ -419,9 +417,9 @@ fun russian3(n: Int): MutableList<String>{
 }
 
 fun russian(n: Int): String {
-    var list = mutableListOf<String>()
-    var n1 = n%1000
-    var n2 = n/1000
+    val list = mutableListOf<String>()
+    val n1 = n % 1000
+    val n2 = n / 1000
     if (n2 != 0) {
         if (n2 % 100 == 1) {
             list.addAll(russian3(n2-1))
