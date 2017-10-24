@@ -265,21 +265,12 @@ fun convert(n: Int, base: Int): List<Int> {
     val av = mutableListOf<Int>()
     var n1 = n
     var t: Int
-    if (n==0) {
-        av.add(0)
-        return av
-    }
-
+    if (n==0) return listOf(0)
     while (n1 > 0) {
         av.add(n1 % base)
         n1 = n1 / base
     }
-    for (i in 0 .. (av.size-1)/2){
-        t = av[i]
-        av[i] = av[ av.size - 1 -i ]
-        av[av.size - 1 - i] = t
-    }
-    return av
+    return av.reversed()
 }
 
 /**
@@ -294,22 +285,18 @@ fun convertToString(n: Int, base: Int): String {
     val list = mutableListOf<Int>()
     val list2 = mutableListOf<Char>()
     var n1 = n
-    var t: Int
     if (n == 0) return "0"
     while (n1 > 0) {
         list.add(n1 % base)
         n1 = n1 / base
     }
-    for (i in 0 .. (list.size - 1) / 2){
-        t = list[i]
-        list[i] = list[ list.size - 1 - i ]
-        list[list.size - 1 - i] = t
-    }
+    list.reverse()
     for (i in 0..list.size - 1){
         if (list[i] >= 10 && list[i] <= 36) {
             list2.add((list[i] + 87).toChar())
         } else list2.add((list[i] + 48).toChar())
         }
+
     return list2.joinToString (separator = "")
 }
 
@@ -324,7 +311,6 @@ fun decimal(digits: List<Int>, base: Int): Int {
     var result = digits[0]
     if (digits.size == 1 ) return digits[0]
     for (i in 1..digits.size - 1){
-
         result = result * base + digits[i]
     }
     return result
@@ -391,7 +377,7 @@ fun russian3(n: Int): MutableList<String>{
     val lstr1  = mutableListOf<String>()
     var n1 = n
     val list12: List<String> = listOf("","один","два","три","четыре","пять","шесть","семь","восемь","девять","десять",
-                                    "одиннадцать","двенадцать","тринадцать","четырнадцать","пятьнадцать","шестнадцать",
+                                    "одиннадцать","двенадцать","тринадцать","четырнадцать","пятнадцать","шестнадцать",
                                     "семнадцать","восемнадцать","девятнадцать")
     val list2: List<String> = listOf("","","двадцать","тридцать","сорок","пятьдесят",
                                     "шестьдесят","семьдесят","восемьдесят","девяносто")
