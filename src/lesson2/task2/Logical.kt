@@ -46,8 +46,8 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
-    val r= sqrt(sqr((x1-x2))+ sqr((y1-y2)))
-    if (r+r1<=r2) return true else return false
+    val r= sqrt(sqr((x1-x2)) + sqr((y1-y2)))
+    return  (r + r1 <= r2)
 }
 
 /**
@@ -76,22 +76,23 @@ fun max(a:Int,b:Int,c: Int):Int {
     }
     return m
 }
-fun cp(a:Int,b:Int,c:Int):Int{
-    if((a != b) && (b != c) && (c != a)){
-        if ((a != min(a,b,c)) && (a != max(a,b,c))) return a
-        else{
-            if ((b != min(a,b,c))&&(b != max(a,b,c))) return b
+fun cp(a:Int,b:Int,c:Int):Int {
+    return when {
+        ((a != b) && (b != c) && (c != a)) -> {
+            when{
+                ((a != min(a, b, c)) && (a != max(a, b, c))) -> a
+                ((b != min(a, b, c)) && (b != max(a, b, c))) -> b
+                else -> c
+            }
+        }
+        ((a == b) && ((b == min(a, b, c)) || (b == max(a, b, c)))) -> a
+        else -> {
+            if ((b == c) && ((c == min(a, b, c)) || (c == max(a, b, c)))) return b
             else return c
+        }
     }
-    }
-    if((a == b) && ((b ==min(a,b,c)) || (b == max(a,b,c)))) return a
-    else{
-        if((b == c) && ((c == min(a,b,c)) || (c == max(a,b,c)))) return b
-        else return c
-
-    }
-
 }
+
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     if ((min(a, b, c) <= min(r, s, s)) && cp(a, b, c) <= max(r, s, s)) return true else return false
 

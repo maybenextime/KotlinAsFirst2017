@@ -84,7 +84,6 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
         else -> 0
             }
 }
-
 /**
  * Простая
  *
@@ -98,11 +97,13 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    if ((((rookX==kingX) || (rookY==kingY)) &&(abs(bishopX-kingX)==abs(bishopY-kingY)))) return 3 else{
-        if ((rookX==kingX) || (rookY==kingY)) return 1
-        if (abs(bishopX-kingX)==abs(bishopY-kingY)) return 2 else return 0
+    return when {
+        (((rookX==kingX) || (rookY==kingY)) &&(abs(bishopX-kingX)==abs(bishopY-kingY))) -> 3
+        ((rookX==kingX) || (rookY==kingY)) -> 1
+        (abs(bishopX-kingX)==abs(bishopY-kingY)) -> 2
+        else -> 0
+        }
     }
-}
 
 /**
  * Простая
@@ -113,15 +114,13 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a + b < c) || (a + c < b) || (c + b < a)) return -1
-    else {
-        if ((a * a == b * b + c * c) || (b * b == c * c + a * a) || (c * c == a * a + b * b)) return 1
-        else {
-            if ((a * a + b * b > c * c) && (b * b + c * c > a * a) && (c * c + a * a > b * b)) return 0
-            else return 2
-        }
+    return when {
+        ((a + b < c) || (a + c < b) || (c + b < a)) -> -1
+        ((a * a == b * b + c * c) || (b * b == c * c + a * a) || (c * c == a * a + b * b)) -> 1
+        ((a * a + b * b > c * c) && (b * b + c * c > a * a) && (c * c + a * a > b * b)) -> 0
+        else -> 2
     }
-}
+    }
 /**
  * Средняя
  *
@@ -140,7 +139,6 @@ fun m(a:Int ,b:Int,c:Int,d:Int):Int {
     if (max<d) {max=d}
     if (min>d) {min=d}
     return max-min
-
 }
 fun segmentLength(a: Int, b: Int, c: Int, d: Int):Int {
         val f = m(a,b,c,d)
@@ -151,4 +149,3 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int):Int {
             return -1
         }
     }
-
