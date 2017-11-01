@@ -1,8 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson5.task1
 
-import org.omg.CORBA.INTERNAL
-import org.omg.PortableInterceptor.IORInterceptor
+
+import kotlin.IllegalArgumentException
 
 /**
  * Пример
@@ -100,6 +100,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
+    if (parts.size == 0) return ""
     try {
         val s = when (parts[1]){
             "01" -> "января"
@@ -178,7 +179,7 @@ fun bestHighJump(jumps: String): Int {
     val parts = jumps.split(" ")
     val lists = mutableListOf<String>()
     for (i in 1.. parts.size-1 step 2){
-        if (parts[i].contentEquals("+")) lists.add(parts[i-1])
+        if ("+" in parts[i]) lists.add(parts[i-1])
     }
     return lists.map{it.toInt()}.max() ?: -1
 }
@@ -194,15 +195,20 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     val parts = expression.split(" ")
-    var result = parts[0].toInt()
-    for (i in 1..parts.size-2 step 2){
-        when (parts[i]){
-            "+" -> result += parts[i+1].toInt()
-            "-" -> result -= parts[i+1].toInt()
+    try {
+        var result = parts[0].toInt()
+        for (i in 1..parts.size - 2 step 2) {
+            when (parts[i]) {
+                "+" -> result += parts[i + 1].toInt()
+                "-" -> result -= parts[i + 1].toInt()
+                else -> throw IllegalArgumentException()
+            }
         }
+        return result
     }
-    return result
+    catch (e: NumberFormatException) {throw IllegalArgumentException() }
 }
+
 
 /**
  * Сложная
