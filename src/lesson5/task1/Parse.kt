@@ -100,7 +100,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
-    if (parts.size == 0) return ""
+    if (parts[0] == "") return ""
     try {
         val s = when (parts[1]){
             "01" -> "января"
@@ -206,7 +206,7 @@ fun plusMinus(expression: String): Int {
         }
         return result
     }
-    catch (e: NumberFormatException) {throw IllegalArgumentException() }
+    catch (e: NumberFormatException) { throw IllegalArgumentException() }
 }
 
 
