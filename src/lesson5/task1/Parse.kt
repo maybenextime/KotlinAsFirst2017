@@ -99,7 +99,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
-    if (parts[0] == "") return ""
+    if (parts[0] == "" || parts.size < 3) return ""
     try {
         val s = when (parts[1]) {
             "01" -> "января"
@@ -196,21 +196,22 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     val parts = expression.split(" ")
+    if (parts.size == 0 || parts.size % 2 == 0) throw IllegalArgumentException()
     try {
         var result = parts[0].toInt()
         for (i in 1..parts.size - 2 step 2) {
+            val numb = parts[i + 1].toInt()
             when (parts[i]) {
-                "+" -> result += parts[i + 1].toInt()
-                "-" -> result -= parts[i + 1].toInt()
-                else -> throw NumberFormatException("IllegalArgumentException")
+                "+" -> result += numb
+                "-" -> result -= numb
+                else -> throw IllegalArgumentException()
             }
         }
         return result
     } catch (e: NumberFormatException) {
-        throw NumberFormatException("IllegalArgumentException")
+        throw IllegalArgumentException()
     }
 }
-
 
 /**
  * Сложная
@@ -265,8 +266,9 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    val lists= mutableListOf<Int>()
+    val lists = mutableListOf<Int>()
     var result = 0
+    if (roman == "") return -1
     for (i in roman) {
         when (i.toString()) {
             "I" -> lists.add(1)
@@ -281,9 +283,9 @@ fun fromRoman(roman: String): Int {
     }
     lists.add(0)
     if (result == -1) return -1
-    for (i in 0 ..lists.size - 2){
-        if (lists[i] < lists[i+1]) result = result - lists[i]
-        if (lists[i] >= lists[i+1]) result = result + lists[i]
+    for (i in 0..lists.size - 2) {
+        if (lists[i] < lists[i + 1]) result = result - lists[i]
+        if (lists[i] >= lists[i + 1]) result = result + lists[i]
     }
     return result
 }
