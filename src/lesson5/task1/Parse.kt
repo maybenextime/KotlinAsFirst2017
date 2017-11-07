@@ -246,12 +246,16 @@ fun firstDuplicateIndex(str: String): Int {
 fun mostExpensive(description: String): String {
     val parts = description.filter { it !in ";" }.split(" ")
     val lists = mutableListOf<String>()
+    var result = ""
     if (description == "") return ""
     for (i in 1..parts.size - 1 step 2) {
         lists.add(parts[i])
     }
     val m = lists.map { it.toDouble() }.max()
-    return parts[lists.indexOf(m.toString()) * 2]
+    for (i in 0..parts.size - 1) {
+        if (parts[i] == m.toString()) result += parts[i - 1] + " "
+    }
+    return result.trim()
 }
 
 /**
