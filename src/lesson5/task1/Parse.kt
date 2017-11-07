@@ -265,7 +265,27 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    
+    val lists= mutableListOf<Int>()
+    var result = 0
+    for (i in roman) {
+        when (i.toString()) {
+            "I" -> lists.add(1)
+            "V" -> lists.add(5)
+            "X" -> lists.add(10)
+            "L" -> lists.add(50)
+            "C" -> lists.add(100)
+            "D" -> lists.add(500)
+            "M" -> lists.add(1000)
+            else -> result = -1
+        }
+    }
+    lists.add(0)
+    if (result == -1) return -1
+    for (i in 0 ..lists.size - 2){
+        if (lists[i] < lists[i+1]) result = result - lists[i]
+        if (lists[i] >= lists[i+1]) result = result + lists[i]
+    }
+    return result
 }
 
 /**

@@ -81,10 +81,7 @@ class Tests {
     @Test
     @Tag("Hard")
     fun plusMinus() {
-        assertEquals(
-                333333333333310
-                ,
-                plusMinus("1fsfsdfsd"))
+        assertEquals("IllegalArgumentException", plusMinus("1fsfsdfsd"))
         assertEquals(4, plusMinus("2 + 2"))
         assertEquals(6, plusMinus("2 + 31 - 40 + 13"))
         assertEquals(-1, plusMinus("0 - 1"))
