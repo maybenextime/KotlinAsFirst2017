@@ -202,12 +202,12 @@ fun plusMinus(expression: String): Int {
             when (parts[i]) {
                 "+" -> result += parts[i + 1].toInt()
                 "-" -> result -= parts[i + 1].toInt()
-                else -> throw IllegalArgumentException()
+                else -> throw NumberFormatException("IllegalArgumentException")
             }
         }
         return result
     } catch (e: NumberFormatException) {
-        throw IllegalArgumentException()
+        throw NumberFormatException("IllegalArgumentException")
     }
 }
 
@@ -264,7 +264,9 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    
+}
 
 /**
  * Очень сложная
