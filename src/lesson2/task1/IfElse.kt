@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task1
 
 import lesson1.task1.discriminant
@@ -55,8 +56,8 @@ fun ageDescription(age: Int): String {
  * Определить, за какое время он одолел первую половину пути?
  */
 fun timeForHalfWay(t1: Double, v1: Double,
-                       t2: Double, v2: Double,
-                       t3: Double, v3: Double): Double {
+                   t2: Double, v2: Double,
+                   t3: Double, v3: Double): Double {
     val s = (v1 * t1 + v2 * t2 + v3 * t3)
     return when {
         v1 * t1 >= s / 2 -> (s / 2 / v1)
@@ -82,8 +83,9 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
         ((rookX1 == kingX) || (rookY1 == kingY)) -> 1
         ((rookX2 == kingX) || (rookY2 == kingY)) -> 2
         else -> 0
-            }
+    }
 }
+
 /**
  * Простая
  *
@@ -98,12 +100,12 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
     return when {
-        (((rookX==kingX) || (rookY==kingY)) &&(abs(bishopX-kingX)==abs(bishopY-kingY))) -> 3
-        ((rookX==kingX) || (rookY==kingY)) -> 1
-        (abs(bishopX-kingX)==abs(bishopY-kingY)) -> 2
+        (((rookX == kingX) || (rookY == kingY)) && (abs(bishopX - kingX) == abs(bishopY - kingY))) -> 3
+        ((rookX == kingX) || (rookY == kingY)) -> 1
+        (abs(bishopX - kingX) == abs(bishopY - kingY)) -> 2
         else -> 0
-        }
     }
+}
 
 /**
  * Простая
@@ -120,7 +122,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         ((a * a + b * b > c * c) && (b * b + c * c > a * a) && (c * c + a * a > b * b)) -> 0
         else -> 2
     }
-    }
+}
+
 /**
  * Средняя
  *
@@ -129,23 +132,35 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun m(a:Int ,b:Int,c:Int,d:Int):Int {
-    var max =a
-    var min=a
-    if (max<b) {max=b}
-    if (min>b) {min=b}
-    if (max<c) {max=c}
-    if (min>c) {min=c}
-    if (max<d) {max=d}
-    if (min>d) {min=d}
-    return max-min
-}
-fun segmentLength(a: Int, b: Int, c: Int, d: Int):Int {
-        val f = m(a,b,c,d)
-        if((d-c+b-a)>=f) {
-            return (d-c+b-a-f)
-        }
-        else {
-            return -1
-        }
+fun m(a: Int, b: Int, c: Int, d: Int): Int {
+    var max = a
+    var min = a
+    if (max < b) {
+        max = b
     }
+    if (min > b) {
+        min = b
+    }
+    if (max < c) {
+        max = c
+    }
+    if (min > c) {
+        min = c
+    }
+    if (max < d) {
+        max = d
+    }
+    if (min > d) {
+        min = d
+    }
+    return max - min
+}
+
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    val f = m(a, b, c, d)
+    if ((d - c + b - a) >= f) {
+        return (d - c + b - a - f)
+    } else {
+        return -1
+    }
+}

@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
@@ -34,7 +35,7 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    return ((x1 == x2) || (y1 == y2) || ( abs(x1 - x2) == abs(y1 - y2)))
+    return ((x1 == x2) || (y1 == y2) || (abs(x1 - x2) == abs(y1 - y2)))
 }
 
 /**
@@ -46,8 +47,8 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
-    val r= sqrt(sqr((x1-x2)) + sqr((y1-y2)))
-    return  (r + r1 <= r2)
+    val r = sqrt(sqr((x1 - x2)) + sqr((y1 - y2)))
+    return (r + r1 <= r2)
 }
 
 /**
@@ -60,13 +61,18 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  *
  */
-fun min(a:Int,b:Int,c: Int):Int{
+fun min(a: Int, b: Int, c: Int): Int {
     var m = a
-    if (m > b) {m = b}
-    if (m > c) {m = c}
+    if (m > b) {
+        m = b
+    }
+    if (m > c) {
+        m = c
+    }
     return m
 }
-fun max(a:Int,b:Int,c: Int):Int {
+
+fun max(a: Int, b: Int, c: Int): Int {
     var m = a
     if (m < b) {
         m = b
@@ -76,10 +82,11 @@ fun max(a:Int,b:Int,c: Int):Int {
     }
     return m
 }
-fun cp(a:Int,b:Int,c:Int):Int {
+
+fun cp(a: Int, b: Int, c: Int): Int {
     return when {
         ((a != b) && (b != c) && (c != a)) -> {
-            when{
+            when {
                 ((a != min(a, b, c)) && (a != max(a, b, c))) -> a
                 ((b != min(a, b, c)) && (b != max(a, b, c))) -> b
                 else -> c
@@ -94,6 +101,5 @@ fun cp(a:Int,b:Int,c:Int):Int {
 }
 
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    if ((min(a, b, c) <= min(r, s, s)) && cp(a, b, c) <= max(r, s, s)) return true else return false
-
+    return ((min(a, b, c) <= min(r, s, s)) && cp(a, b, c) <= max(r, s, s))
 }
