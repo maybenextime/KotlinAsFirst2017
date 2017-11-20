@@ -1,8 +1,10 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
 
 import lesson1.task1.sqr
 import java.lang.Math.*
+
 /**
  * Пример
  *
@@ -36,7 +38,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -62,17 +64,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int):Int {
+fun digitNumber(n: Int): Int {
     var a = n
     var i = 0
     if (a == 0) return 1
-    while(a != 0){
+    while (a != 0) {
         a = a / 10
         i++
     }
     return i
 }
-
 
 
 /**
@@ -82,19 +83,19 @@ fun digitNumber(n: Int):Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var t :Int
-    var i=2
+    var t: Int
+    var i = 2
     var fib1 = 1
     var fib2 = 1
-    while (i < n){
+    while (i < n) {
         i++
         t = fib2
         fib2 = fib1 + fib2
         fib1 = t
     }
     return fib2
-
 }
+
 /**
  * Простая
  *
@@ -102,13 +103,17 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    val x=m*n
-    var a=m
-    var b=n
-    while(a!=b){
-        if (a>b) {a=a-b} else {b=b-a}
+    val x = m * n
+    var a = m
+    var b = n
+    while (a != b) {
+        if (a > b) {
+            a = a - b
+        } else {
+            b = b - a
+        }
     }
-    return (x/a)
+    return (x / a)
 }
 
 /**
@@ -117,12 +122,10 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var i = 2
-    while ((n % i != 0) && (i <= sqrt(n.toDouble()))){
-        i++
-   }
-    if (n % i != 0) return n else
-    return i
+    for (i in 2..n / 2) {
+        if (n % i == 0) return i
+    }
+    return n
 }
 
 /**
@@ -131,7 +134,7 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    return n/minDivisor(n)
+    return n / minDivisor(n)
 }
 
 /**
@@ -141,7 +144,7 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = (m*n / lcm(m,n) ==1)
+fun isCoPrime(m: Int, n: Int): Boolean = (m * n / lcm(m, n) == 1)
 
 /**
  * Простая
@@ -151,10 +154,11 @@ fun isCoPrime(m: Int, n: Int): Boolean = (m*n / lcm(m,n) ==1)
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    return when{
-        (m==n) -> true
-        (floor(sqrt(n.toDouble()))- floor(sqrt(m.toDouble())) > 0) -> true
-        else -> false }
+    return when {
+        (m == n) -> true
+        (floor(sqrt(n.toDouble())) - floor(sqrt(m.toDouble())) > 0) -> true
+        else -> false
+    }
 }
 
 /**
@@ -164,27 +168,21 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double):Double{
-    var s:Double
-    var a:Double = x
+fun sin(x: Double, eps: Double): Double {
+    var s: Double
+    var a = x % (2 * PI)
     var i = 1
     var s1 = 1.0
-    while ((a > 0) && (a >= 2 * PI)){
-        a=a - 2 * PI
-    }
-    while ((a<0)&&(a<=-2*PI)) {
-        a=a + 2 * PI
-    }
-    s=a
+    s = a
     val a1 = a
     if (a == 0.0) return 0.0
     while (abs(s / s1) > abs(eps)) {
         s = s * a1 * a1 * (-1)
         s1 = s1 * (i + 1.0) * (i + 2.0)
-        a = a + s/s1
+        a = a + s / s1
         i = i + 2
     }
-        return a
+    return a
 }
 
 /**
@@ -194,26 +192,23 @@ fun sin(x: Double, eps: Double):Double{
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double{
+fun cos(x: Double, eps: Double): Double {
     var s = 1.0
     var a = 1.0
     var i = 0.0
     var s1 = 1.0
-    var a1 : Double
-    if (x >= 0) {a1 = x} else a1 = -x
-    while (a1 >= 2 * PI){
-        a1 = a1 - 2 * PI
-    }
+    val a1 = x % (2 * PI)
     s = a
     if (x == 0.0) return 1.0
     while (abs(s / s1) >= abs(eps)) {
-        s1 = s1 * (i +  1.0) * (i + 2.0)
+        s1 = s1 * (i + 1.0) * (i + 2.0)
         s = s * a1 * a1 * (-1.0)
         a = a + s / s1
         i = i + 2.0
     }
     return a
 }
+
 /**
  * Средняя
  *
@@ -223,12 +218,13 @@ fun cos(x: Double, eps: Double): Double{
 fun revert(n: Int): Int {
     var result = 0
     var number = n
-    while(number > 0) {
+    while (number > 0) {
         result = (result * 10) + number % 10
         number /= 10
     }
     return result
 }
+
 /**
  * Средняя
  *
@@ -237,7 +233,7 @@ fun revert(n: Int): Int {
  * 15751 -- палиндром, 3653 -- нет.
  */
 fun isPalindrome(n: Int): Boolean {
-    return (n== revert(n))
+    return (n == revert(n))
 }
 
 /**
@@ -249,12 +245,12 @@ fun isPalindrome(n: Int): Boolean {
 fun hasDifferentDigits(n: Int): Boolean {
     var i = 1
     var j = 0
-    if (n==0) return false
-    while (n/i!=0) {
+    if (n == 0) return false
+    while (n / i != 0) {
         i = i * 10
         j = j * 10 + 1
     }
-    return  (n%j !=0)
+    return (n % j != 0)
 
 }
 
@@ -265,17 +261,17 @@ fun hasDifferentDigits(n: Int): Boolean {
  * 149162536496481100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
-fun squareSequenceDigit(n: Int): Int{
+fun squareSequenceDigit(n: Int): Int {
     var d = 0
-    var f : Int
+    var f: Int
     var i = 0
     while (d < n) {
         i++
-        d += digitNumber(i*i)
+        d += digitNumber(i * i)
 
     }
     f = i * i
-    for (k in n.. d-1) {
+    for (k in n..d - 1) {
         f = f / 10
     }
     return f % 10

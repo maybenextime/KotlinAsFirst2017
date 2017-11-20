@@ -84,20 +84,7 @@ fun max(a: Int, b: Int, c: Int): Int {
 }
 
 fun cp(a: Int, b: Int, c: Int): Int {
-    return when {
-        ((a != b) && (b != c) && (c != a)) -> {
-            when {
-                ((a != min(a, b, c)) && (a != max(a, b, c))) -> a
-                ((b != min(a, b, c)) && (b != max(a, b, c))) -> b
-                else -> c
-            }
-        }
-        ((a == b) && ((b == min(a, b, c)) || (b == max(a, b, c)))) -> a
-        else -> {
-            if ((b == c) && ((c == min(a, b, c)) || (c == max(a, b, c)))) return b
-            else return c
-        }
-    }
+    return a + b + c - max(a, b, c) - min(a, b, c)
 }
 
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {

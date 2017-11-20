@@ -3,7 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
-import java.lang.Math.abs
+import java.lang.Math.*
 
 /**
  * Пример
@@ -132,32 +132,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun m(a: Int, b: Int, c: Int, d: Int): Int {
-    var max = a
-    var min = a
-    if (max < b) {
-        max = b
-    }
-    if (min > b) {
-        min = b
-    }
-    if (max < c) {
-        max = c
-    }
-    if (min > c) {
-        min = c
-    }
-    if (max < d) {
-        max = d
-    }
-    if (min > d) {
-        min = d
-    }
-    return max - min
-}
-
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    val f = m(a, b, c, d)
+    val f = max(max(a, b), max(c, d)) - min(min(a, b), min(c, d))
     if ((d - c + b - a) >= f) {
         return (d - c + b - a - f)
     } else {
