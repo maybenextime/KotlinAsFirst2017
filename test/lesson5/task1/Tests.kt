@@ -81,7 +81,7 @@ class Tests {
     @Test
     @Tag("Hard")
     fun plusMinus() {
-        assertEquals("IllegalArgumentException", plusMinus("1fsfsdfsd"))
+        assertEquals(0, plusMinus("0"))
         assertEquals(4, plusMinus("2 + 2"))
         assertEquals(6, plusMinus("2 + 31 - 40 + 13"))
         assertEquals(-1, plusMinus("0 - 1"))
@@ -100,7 +100,7 @@ class Tests {
     @Tag("Hard")
     fun mostExpensive() {
         assertEquals("", mostExpensive(""))
-        assertEquals("Курица", mostExpensive("Хлеб 184.0; Молоко 62.5; Курица 184.0; Конфеты 89.9"))
+        assertEquals("Курица", mostExpensive("Хлеб 39.9; Молоко 62.5; Курица 184.0; Конфеты 89.9"))
         assertEquals("Вино", mostExpensive("Вино 255.0"))
     }
 
