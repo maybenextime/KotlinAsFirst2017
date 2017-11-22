@@ -2,7 +2,6 @@
 
 package lesson3.task1
 
-import lesson1.task1.sqr
 import java.lang.Math.*
 
 /**
@@ -193,12 +192,11 @@ fun sin(x: Double, eps: Double): Double {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun cos(x: Double, eps: Double): Double {
-    var s = 1.0
     var a = 1.0
     var i = 0.0
     var s1 = 1.0
     val a1 = x % (2 * PI)
-    s = a
+    var s = a
     if (x == 0.0) return 1.0
     while (abs(s / s1) >= abs(eps)) {
         s1 = s1 * (i + 1.0) * (i + 2.0)
@@ -263,14 +261,12 @@ fun hasDifferentDigits(n: Int): Boolean {
  */
 fun squareSequenceDigit(n: Int): Int {
     var d = 0
-    var f: Int
     var i = 0
     while (d < n) {
         i++
         d += digitNumber(i * i)
-
     }
-    f = i * i
+    var f = i * i
     for (k in n..d - 1) {
         f = f / 10
     }
@@ -287,16 +283,13 @@ fun squareSequenceDigit(n: Int): Int {
 fun fibSequenceDigit(n: Int): Int {
     var i = 1
     var j = 1
-    var a = 0
-    var f = 0
     while (i < n) {
         j++
         i = i + digitNumber(fib(j))
     }
-    f = fib(j)
+    var f = fib(j)
     for (k in 1..(i - n)) {
-        a = f % 10
-        f = (f - a) / 10
+        f = f / 10
     }
 
     return f % 10

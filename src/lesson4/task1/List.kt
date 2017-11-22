@@ -1,10 +1,12 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.digitNumber
 import lesson3.task1.isPrime
+import lesson3.task1.minDivisor
 import java.awt.Stroke
 import java.lang.Math.*
 import javax.swing.text.html.HTML.Tag.I
@@ -114,9 +116,8 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var t = 0.0
-    if (v.size == 0) return 0.0
-    for (i in 0..v.size - 1 ) {
-        t +=  sqr(v[i])
+    for (i in 0..v.size - 1) {
+        t += sqr(v[i])
     }
     return sqrt(t)
 }
@@ -129,7 +130,9 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Double {
     var result = 0.0
     if (list.size == 0) return 0.0
-    for (i in 0.. list.size - 1) { result += list[i]}
+    for (i in 0..list.size - 1) {
+        result += list[i]
+    }
     return result / list.size
 }
 
@@ -143,7 +146,7 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     val m = mean(list)
-    for (i in 0 .. list.size - 1){
+    for (i in 0..list.size - 1) {
         list[i] = list[i] - m
     }
     return list
@@ -159,7 +162,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Double>, b: List<Double>): Double {
     var result = 0.0
     if (a.size * b.size == 0) return 0.0
-    for (i in 0.. min(a.size - 1,b.size - 1)){
+    for (i in 0..a.size - 1) {
         result += a[i] * b[i]
     }
     return result
@@ -173,14 +176,13 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double{
+fun polynom(p: List<Double>, x: Double): Double {
     var a = 1.0
     if (p.size == 0) return 0.0
     var result = p[0]
-    if (p.size == 1) return p[0]
-    for (i in 1..p.size-1) {
-        a = a*x
-        result += p[i]*a
+    for (i in 1..p.size - 1) {
+        a = a * x
+        result += p[i] * a
     }
     return result
 }
@@ -197,15 +199,9 @@ fun polynom(p: List<Double>, x: Double): Double{
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     var sum = 0.0
-    while (list.size < 2) return list
-    var a = list[list.size-1]
-    for (i in 0.. list.size -1){
-        sum += list [i]
-    }
-    for ( i in list.size-1 downTo 1) {
+    for (i in 0..list.size - 1) {
+        sum += list[i]
         list[i] = sum
-        sum = sum - a
-        a = list[i - 1]
     }
     return list
 }
@@ -218,30 +214,15 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    val list = mutableListOf<Int>()
-    var av = n
-    var i = 2
-    if (isPrime(n) == true) {
-        list.add(n)
-        return list
+    var result = listOf<Int>()
+    var number = n
+    while (number > 1) {
+        val min = minDivisor(number)
+        result += min
+        number /= min
     }
-    while (i <= sqrt(av*1.0).toInt()) {
-        if (isPrime(i) == true) {
-            while (av % i == 0) {
-                av = av/i
-                list.add(i)
-            }
-            i++
-        }
-        else i++
-        if (isPrime(av)) {
-            list.add(av)
-            return list
-        }
-        }
-    return list
-    }
-
+    return result
+}
 
 
 /**
@@ -264,8 +245,7 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     val av = mutableListOf<Int>()
     var n1 = n
-    var t: Int
-    if (n==0) return listOf(0)
+    if (n == 0) return listOf(0)
     while (n1 > 0) {
         av.add(n1 % base)
         n1 = n1 / base
@@ -282,22 +262,13 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    val list = mutableListOf<Int>()
-    val list2 = mutableListOf<Char>()
-    var n1 = n
-    if (n == 0) return "0"
-    while (n1 > 0) {
-        list.add(n1 % base)
-        n1 = n1 / base
+    val cvint = convert(n, base)
+    val cvchar = mutableListOf<Char>()
+    for (i in 0..cvint.size - 1) {
+        if (cvint[i] < 10) cvchar.add('0' + cvint[i])
+        else cvchar.add('a' + cvint[i] - 10)
     }
-    list.reverse()
-    for (i in 0..list.size - 1){
-        if (list[i] >= 10 && list[i] <= 36) {
-            list2.add((list[i] + 87).toChar())
-        } else list2.add((list[i] + 48).toChar())
-        }
-
-    return list2.joinToString (separator = "")
+    return cvchar.joinToString(separator = "")
 }
 
 /**
@@ -309,12 +280,13 @@ fun convertToString(n: Int, base: Int): String {
  */
 fun decimal(digits: List<Int>, base: Int): Int {
     var result = digits[0]
-    if (digits.size == 1 ) return digits[0]
-    for (i in 1..digits.size - 1){
+    if (digits.size == 1) return digits[0]
+    for (i in 1..digits.size - 1) {
         result = result * base + digits[i]
     }
     return result
 }
+
 /**
  *
  *  Сложная
@@ -326,19 +298,12 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    val listch = str.toCharArray()
-    val listint = mutableListOf<Int>()
-    var av = 0.0
-    var j=0.0
-    for (i in 0..listch.size-1) {
-        if (listch[i].toInt() >= 97) {listint.add(listch[i].toInt()-87)}
-        else listint.add(listch[i].toInt()-48)
+    val digits = mutableListOf<Int>()
+    for (char in str) {
+        if (char in 'a'..'z') digits.add(char - 'a' + 10)
+        else digits.add(char - '0')
     }
-    for (i in listint.size-1 downTo 0){
-        av += listint[i] * pow(base*1.0,j)
-        j=j+1
-    }
-    return av.toInt()
+    return decimal(digits, base)
 }
 
 /**
@@ -351,21 +316,29 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun roman(n: Int): String {
     var n1 = n
-    val list1: List<String> = listOf("","I","II","III","IV","V","VI","VII","VIII","IX")
-    val list2: List<String> = listOf("","X","XX","XXX","XL","L","LX","LXX","LXXX","XC")
-    val list3: List<String> = listOf("","C","CC","CCC","CD","D","DC","DCC","DCCC","CM")
-    var av =""
-    for (i in 1..digitNumber(n))
-    {
-        if (i == 1){av = list1[n1%10] + av}
-        if (i == 2){av = list2[n1%10] + av}
-        if (i == 3){av = list3[n1%10] + av}
-        if (i > 3)break
-        n1 = n1/10
+    val list1: List<String> = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val list2: List<String> = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val list3: List<String> = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    var av = ""
+    for (i in 1..digitNumber(n)) {
+        if (i == 1) {
+            av = list1[n1 % 10] + av
+        }
+        if (i == 2) {
+            av = list2[n1 % 10] + av
+        }
+        if (i == 3) {
+            av = list3[n1 % 10] + av
+        }
+        if (i > 3) break
+        n1 = n1 / 10
     }
-    for (i in 1..n1) {av= "M"+av}
+    for (i in 1..n1) {
+        av = "M" + av
+    }
     return av
 }
+
 /**
  * Очень сложная
  *
@@ -373,29 +346,24 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian3(n: Int): MutableList<String>{
-    val lstr1  = mutableListOf<String>()
-    var n1 = n
-    val list12: List<String> = listOf("","один","два","три","четыре","пять","шесть","семь","восемь","девять","десять",
-                                    "одиннадцать","двенадцать","тринадцать","четырнадцать","пятнадцать","шестнадцать",
-                                    "семнадцать","восемнадцать","девятнадцать")
-    val list2: List<String> = listOf("","","двадцать","тридцать","сорок","пятьдесят",
-                                    "шестьдесят","семьдесят","восемьдесят","девяносто")
-    val list3: List<String> = listOf("","сто","двести","триста","четыреста","пятьсот",
-                                    "шестьсот","семьсот","восемьсот","девятьсот")
+fun russian3(n: Int): MutableList<String> {
+    val lstr1 = mutableListOf<String>()
+    val n1 = n
+    val list12: List<String> = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять",
+            "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать",
+            "семнадцать", "восемнадцать", "девятнадцать")
+    val list2: List<String> = listOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят",
+            "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
+    val list3: List<String> = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот",
+            "шестьсот", "семьсот", "восемьсот", "девятьсот")
 
-    if(n1%100 < 20) {
+    if (n1 % 100 < 20) {
         lstr1.add(list12[n1 % 100])
         lstr1.add(list3[n1 / 100])
-    }
-    else {
-        for (i in 1..digitNumber(n))
-        {
-            if (i == 1){lstr1.add(list12[n1 % 10])}
-            if (i == 2){lstr1.add(list2[n1 % 10])}
-            if (i == 3){lstr1.add(list3[n1 % 10])}
-            n1 = n1 / 10
-        }
+    } else {
+        lstr1.add(list12[n1 % 10])
+        lstr1.add(list2[(n1 / 10) % 10])
+        lstr1.add(list3[(n1 / 100) % 10])
     }
     lstr1.remove(element = "")
     lstr1.reverse()
@@ -403,64 +371,27 @@ fun russian3(n: Int): MutableList<String>{
 }
 
 fun russian(n: Int): String {
-    val list = mutableListOf<String>()
     val n1 = n % 1000
     val n2 = n / 1000
+    val list1 = russian3(n1)
+    var list = mutableListOf<String>()
+    val j = n2 % 10
     if (n2 != 0) {
-        if (n2 % 100 == 1) {
-            list.addAll(russian3(n2-1))
+        list = russian3(n2)
+        if (j == 1 && n2 % 100 != 11) {
+            list.remove("один")
             list.add("одна тысяча")
-            list.addAll(russian3(n1))
-            list.remove("")
-            return list.joinToString(separator = " ")
         }
-        if (n2 % 100 == 2) {
-            list.addAll(russian3(n2-2))
+        if (j == 2 && n2 % 100 != 12) {
+            list.remove("два")
             list.add("две тысячи")
-            list.addAll(russian3(n1))
-            list.remove("")
-            return list.joinToString(separator = " ")
-        } else {
-            if (n2 % 100 >= 20) {
-                if (n2 % 10 == 1) {
-                    list.addAll(russian3(n2-1))
-                    list.add("одна тысяча")
-                    list.addAll(russian3(n1))
-                    return list.joinToString(separator = " ")
-                }
-                if (n2 % 10 == 2) {
-                    list.addAll(russian3(n2-2))
-                    list.add("две тысячи")
-                    list.addAll(russian3(n1))
-                    return list.joinToString(separator = " ")
-                }
-                if ((n2 % 10 == 3) || (n2 % 10 == 4)) {
-                    list.addAll(russian3(n2))
-                    list.add("тысячи")
-                    list.addAll(russian3(n1))
-                    return list.joinToString(separator = " ")
-                } else {
-                    list.addAll(russian3(n2))
-                    list.add("тысяч")
-                    list.addAll(russian3(n1))
-                    return list.joinToString(separator = " ")
-                }
-            } else {
-                if ((n2 % 100 == 3) || (n2 % 100 == 4)) {
-                    list.addAll(russian3(n2))
-                    list.add("тысячи")
-                    list.addAll(russian3(n1))
-                    return list.joinToString(separator = " ")
-                } else {
-                    list.addAll(russian3(n2))
-                    list.add("тысяч")
-                    list.addAll(russian3(n1))
-                    list.remove(element = "")
-                    return list.joinToString(separator = " ")
-                }
-            }
         }
+        if ((j == 3 || j == 4) && n2 % 100 != 13 && n2 % 100 != 14) list.add("тысячи")
+        if (j in 5..9 || j == 0 || n2 % 100 in 11..14) list.add("тысяч")
+        list.addAll(list1)
+        list.remove("")
+        return list.joinToString(separator = " ")
     }
-    else return russian3(n1).joinToString (separator = " ")
+    return list1.joinToString(separator = " ")
 }
 

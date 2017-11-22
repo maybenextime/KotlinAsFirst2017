@@ -3,8 +3,6 @@
 package lesson5.task1
 
 
-import kotlin.IllegalArgumentException
-
 /**
  * Пример
  *
