@@ -194,14 +194,14 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     val parts = expression.split(" ")
-    if (parts.size == 0 || parts.size % 2 == 0) throw IllegalArgumentException()
+    if (parts.size % 2 == 0) throw IllegalArgumentException()
     try {
         var result = parts[0].toInt()
         for (i in 1..parts.size - 2 step 2) {
-            val numb = parts[i + 1].toInt()
+            val number = parts[i + 1].toInt()
             when (parts[i]) {
-                "+" -> result += numb
-                "-" -> result -= numb
+                "+" -> result += number
+                "-" -> result -= number
                 else -> throw IllegalArgumentException()
             }
         }
@@ -210,6 +210,7 @@ fun plusMinus(expression: String): Int {
         throw IllegalArgumentException()
     }
 }
+
 
 /**
  * Сложная
@@ -242,10 +243,10 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
+    if (description == "") return ""
     val parts = description.filter { it !in ";" }.split(" ")
     val lists = mutableListOf<String>()
     var result = ""
-    if (description == "") return ""
     for (i in 1..parts.size - 1 step 2) {
         lists.add(parts[i])
     }

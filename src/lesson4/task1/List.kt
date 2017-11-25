@@ -4,12 +4,8 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
-import lesson3.task1.digitNumber
-import lesson3.task1.isPrime
 import lesson3.task1.minDivisor
-import java.awt.Stroke
-import java.lang.Math.*
-import javax.swing.text.html.HTML.Tag.I
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -278,14 +274,7 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int {
-    var result = digits[0]
-    if (digits.size == 1) return digits[0]
-    for (i in 1..digits.size - 1) {
-        result = result * base + digits[i]
-    }
-    return result
-}
+fun decimal(digits: List<Int>, base: Int): Int = polynom(digits.map { it.toDouble() }.reversed(), base.toDouble()).toInt()
 
 /**
  *
@@ -320,19 +309,10 @@ fun roman(n: Int): String {
     val list2: List<String> = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
     val list3: List<String> = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
     var av = ""
-    for (i in 1..digitNumber(n)) {
-        if (i == 1) {
-            av = list1[n1 % 10] + av
-        }
-        if (i == 2) {
-            av = list2[n1 % 10] + av
-        }
-        if (i == 3) {
-            av = list3[n1 % 10] + av
-        }
-        if (i > 3) break
-        n1 = n1 / 10
-    }
+    av = list1[n1 % 10] + av
+    av = list2[(n1 / 10) % 10] + av
+    av = list3[(n1 / 100) % 10] + av
+    n1 = n1 / 1000
     for (i in 1..n1) {
         av = "M" + av
     }
@@ -378,20 +358,21 @@ fun russian(n: Int): String {
     val j = n2 % 10
     if (n2 != 0) {
         list = russian3(n2)
-        if (j == 1 && n2 % 100 != 11) {
-            list.remove("один")
-            list.add("одна тысяча")
+        when {
+            j == 1 && n2 % 100 != 11 -> {
+                list.remove("один")
+                list.add("одна тысяча")
+            }
+            j == 2 && n2 % 100 != 12 -> {
+                list.remove("два")
+                list.add("две тысячи")
+            }
+            (j == 3 || j == 4) && n2 % 100 != 13 && n2 % 100 != 14 -> list.add("тысячи")
+            j in 5..9 || j == 0 || n2 % 100 in 11..14 -> list.add("тысяч")
         }
-        if (j == 2 && n2 % 100 != 12) {
-            list.remove("два")
-            list.add("две тысячи")
-        }
-        if ((j == 3 || j == 4) && n2 % 100 != 13 && n2 % 100 != 14) list.add("тысячи")
-        if (j in 5..9 || j == 0 || n2 % 100 in 11..14) list.add("тысяч")
-        list.addAll(list1)
-        list.remove("")
-        return list.joinToString(separator = " ")
     }
-    return list1.joinToString(separator = " ")
+    list.addAll(list1)
+    list.remove("")
+    return list.joinToString(separator = " ")
 }
 
