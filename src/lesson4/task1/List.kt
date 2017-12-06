@@ -305,9 +305,9 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun roman(n: Int): String {
     var n1 = n
-    val list1: List<String> = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
-    val list2: List<String> = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
-    val list3: List<String> = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val list1 = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val list2 = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val list3 = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
     var av = ""
     av = list1[n1 % 10] + av
     av = list2[(n1 / 10) % 10] + av
@@ -329,12 +329,12 @@ fun roman(n: Int): String {
 fun russian3(n: Int): MutableList<String> {
     val lstr1 = mutableListOf<String>()
     val n1 = n
-    val list12: List<String> = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять",
+    val list12 = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять",
             "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать",
             "семнадцать", "восемнадцать", "девятнадцать")
-    val list2: List<String> = listOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят",
+    val list2 = listOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят",
             "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
-    val list3: List<String> = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот",
+    val list3 = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот",
             "шестьсот", "семьсот", "восемьсот", "девятьсот")
 
     if (n1 % 100 < 20) {

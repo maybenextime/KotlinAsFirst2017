@@ -97,6 +97,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
+    if (parts.size != 3) return ""
     if (parts[0] == "" || parts.size < 3) return ""
     try {
         val s = when (parts[1]) {
@@ -116,7 +117,6 @@ fun dateDigitToStr(digital: String): String {
         }
         return when {
             (s == "") -> ""
-            (parts.size != 3) -> ""
             else -> String.format("%d %s %s", parts[0].toInt(), s, parts[2].toInt())
         }
     } catch (e: NumberFormatException) {
@@ -330,3 +330,30 @@ fun fromRoman(roman: String): Int {
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
+fun myFun(people: List<String>): Collection<Any> {
+    val color = mutableListOf<String>()
+    val name = mutableListOf<String>()
+    val result = mutableListOf<String>()
+    for (i in 0..people.size - 1) {
+        color.add(people[i].split(":")[1])
+        name.add(people[i].split(":")[0])
+    }
+    for (i in 0..name.size - 1) {
+        name[i] = name[i].split(" ")[1] + " " + name[i].split(" ")[0]
+    }
+    for (i in 0..people.size - 1) {
+        var d = 0
+        for (j in 0..people.size - 1) {
+            when {
+                (i != j && color[i].filter { it !in "," }.split(" ").sorted() == color[j].filter { it !in "," }.split(" ").sorted())
+                -> d++
+                else -> d = d
+            }
+        }
+        when {
+            d == 0 -> result.add(color[i].trim() + " -> " + name[i])
+        }
+    }
+    return result
+}

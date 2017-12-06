@@ -130,4 +130,8 @@ class Tests {
         assertEquals(listOf(0, 6, 5, 4, 3, 2, 1, 0, -1, -1, -2),
                 computeDeviceCells(11, "<<<<< + >>>>>>>>>> --[<-] >+[>+] >++[--< <[<] >+[>+] >++]", 256))
     }
+    @Test
+    fun myFun() {
+        assertEquals(listOf("e, g, h -> b a"), myFun(listOf("a b c: d, e, f", "a b c: e, g, h", "c h a: d, e, f")))
+    }
 }

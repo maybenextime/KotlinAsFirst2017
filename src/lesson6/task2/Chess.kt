@@ -3,6 +3,7 @@
 package lesson6.task2
 
 import java.lang.Math.abs
+import java.lang.Math.max
 
 
 /**
@@ -69,8 +70,8 @@ fun square(notation: String): Square {
  */
 fun rookMoveNumber(start: Square, end: Square): Int {
     return when {
-        !start.inside() || end.inside() -> throw IllegalArgumentException()
-        start.column == end.column && start.row == end.row -> 0
+        !start.inside() || !end.inside() -> throw IllegalArgumentException()
+        start == end -> 0
         start.column == end.column || start.row == end.row -> 1
         else -> 2
     }
@@ -175,7 +176,10 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Пример: kingMoveNumber(Square(3, 1), Square(6, 3)) = 3.
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
-fun kingMoveNumber(start: Square, end: Square): Int = TODO()
+fun kingMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    return max(abs(start.row - end.row), (abs(start.column - end.column)))
+}
 
 /**
  * Сложная
@@ -191,7 +195,25 @@ fun kingMoveNumber(start: Square, end: Square): Int = TODO()
  *          kingTrajectory(Square(3, 5), Square(6, 2)) = listOf(Square(3, 5), Square(4, 4), Square(5, 3), Square(6, 2))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun kingTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun kingTrajectory(start: Square, end: Square): List<Square> {
+    var nsquare = start
+    val list = mutableListOf(start)
+    while (nsquare != end) {
+        var row1 = 0
+        var column1 = 0
+        when {
+            nsquare.row > end.row -> row1 = -1
+            nsquare.row < end.row -> row1 = 1
+        }
+        when {
+            nsquare.column > end.column -> column1 = -1
+            nsquare.column < end.column -> column1 = 1
+        }
+        nsquare = Square(nsquare.column + column1, nsquare.row + row1)
+        list.add(nsquare)
+    }
+    return list
+}
 
 /**
  * Сложная
