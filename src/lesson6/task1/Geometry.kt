@@ -189,7 +189,7 @@ fun lineBySegment(s: Segment): Line = Line(s.begin, Math.atan((s.end.y - s.begin
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line = Line(a, atan(abs((a.y - b.y) / (a.x - b.x))))
+fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
 
 /**
  * Сложная
@@ -212,10 +212,10 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
     var dis = circles[0].distance(circles[1])
     var result = Pair(circles[0], circles[1])
     for (i in 0..circles.size - 1) {
-        for (j in i + 1..circles.size) {
+        for (j in i + 1..circles.size - 1) {
             if (dis > circles[i].distance(circles[j])) {
-                result = Pair(circles[i], circles[j])
                 dis = circles[i].distance(circles[j])
+                result = Pair(circles[i], circles[j])
             }
         }
     }
