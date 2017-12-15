@@ -132,6 +132,10 @@ class Tests {
     }
     @Test
     fun myFun() {
-        assertEquals(listOf("e, g, h -> b a"), myFun(listOf("a b c: d, e, f", "a b c: e, g, h", "c h a: d, e, f")))
+        assertEquals(listOf("#C00010 -> ten nguoi"), myFun(listOf("ten nguoi #C00010", "blo nguoi #00D001","bla aa #00D001")))
+        assertEquals(listOf("#D00001 -> ahh aaa aaa","#E00002 -> add add","#F00003 -> ddda ddas"),myFun(listOf("ahh aaa aaa #D00001","add add #E00002","ddda ddas #F00003")))
+        assertEquals(listOf<String>(),myFun(listOf("ahh aaa aaa #000011","add add #000011","ddda ddas #000011")))
+        assertEquals(listOf<String>(),myFun(listOf("ahh aaa aaa #00001z","add add #000011","ddda ddas #000011")))
+
     }
 }

@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import java.io.IOException
+
 
 /**
  * Пример
@@ -247,12 +249,17 @@ fun mostExpensive(description: String): String {
     val parts = description.filter { it !in ";" }.split(" ")
     val lists = mutableListOf<String>()
     var result = ""
-    for (i in 1..parts.size - 1 step 2) {
-        lists.add(parts[i])
-    }
-    val m = lists.map { it.toDouble() }.max()
-    for (i in 0..parts.size - 1) {
-        if (parts[i] == m.toString()) result += parts[i - 1] + " "
+    try {
+
+        for (i in 1..parts.size - 1 step 2) {
+            lists.add(parts[i])
+        }
+        val m = lists.map { it.toDouble() }.max()
+        for (i in 0..parts.size - 1) {
+            if (parts[i] == m.toString()) result += parts[i - 1] + " "
+        }
+    } catch (e: NumberFormatException) {
+        return ""
     }
     return result.trim()
 }
@@ -293,6 +300,7 @@ fun fromRoman(roman: String): Int {
     return result
 }
 
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
 /**
  * Очень сложная
  *
@@ -329,31 +337,23 @@ fun fromRoman(roman: String): Int {
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
 
 fun myFun(people: List<String>): Collection<Any> {
-    val color = mutableListOf<String>()
-    val name = mutableListOf<String>()
-    val result = mutableListOf<String>()
+    val ppn = mutableListOf<String>()
     for (i in 0..people.size - 1) {
-        color.add(people[i].split(":")[1])
-        name.add(people[i].split(":")[0])
+        ppn.add("#" + people[i].split(" #")[1] + " -> " + people[i].split(" #")[0])
     }
-    for (i in 0..name.size - 1) {
-        name[i] = name[i].split(" ")[1] + " " + name[i].split(" ")[0]
-    }
-    for (i in 0..people.size - 1) {
-        var d = 0
-        for (j in 0..people.size - 1) {
-            when {
-                (i != j && color[i].filter { it !in "," }.split(" ").sorted() == color[j].filter { it !in "," }.split(" ").sorted())
-                -> d++
-                else -> d = d
-            }
+    ppn.sort()
+    val res = mutableListOf<String>()
+    if (ppn[1].split(" ")[0] != ppn[0].split(" ")[0]) res.add(ppn[0])
+    for (i in 1..ppn.size - 1) {
+        if (ppn[i].split(" ")[0].length != 7) throw IOException()
+        for (j in 1..ppn[i].split(" ")[0].length - 1) {
+            if (ppn[i].split(" ")[0][j] !in listOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F'))
+                throw IOException()
         }
-        when {
-            d == 0 -> result.add(color[i].trim() + " -> " + name[i])
-        }
+        if (ppn[i].split(" ")[0] != ppn[i - 1].split(" ")[0]) res.add(ppn[i])
     }
-    return result
+    return res
 }

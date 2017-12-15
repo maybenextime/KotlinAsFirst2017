@@ -5,6 +5,7 @@ package lesson4.task1
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.minDivisor
+import java.lang.Math.min
 import java.lang.Math.sqrt
 
 /**
@@ -158,7 +159,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Double>, b: List<Double>): Double {
     var result = 0.0
     if (a.size * b.size == 0) return 0.0
-    for (i in 0..a.size - 1) {
+    for (i in 0..min(a.size - 1, b.size - 1)) {
         result += a[i] * b[i]
     }
     return result
@@ -289,7 +290,7 @@ fun decimal(digits: List<Int>, base: Int): Int = polynom(digits.map { it.toDoubl
 fun decimalFromString(str: String, base: Int): Int {
     val digits = mutableListOf<Int>()
     for (char in str) {
-        if (char in 'a'..'z') digits.add(char - 'a' + 10)
+        if (char in 'A'..'Z') digits.add(char - 'A' + 10)
         else digits.add(char - '0')
     }
     return decimal(digits, base)
