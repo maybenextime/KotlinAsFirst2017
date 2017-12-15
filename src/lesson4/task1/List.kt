@@ -290,7 +290,7 @@ fun decimal(digits: List<Int>, base: Int): Int = polynom(digits.map { it.toDoubl
 fun decimalFromString(str: String, base: Int): Int {
     val digits = mutableListOf<Int>()
     for (char in str) {
-        if (char in 'A'..'Z') digits.add(char - 'A' + 10)
+        if (char in 'a'..'z') digits.add(char - 'a' + 10)
         else digits.add(char - '0')
     }
     return decimal(digits, base)
