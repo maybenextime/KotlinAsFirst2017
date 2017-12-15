@@ -256,7 +256,7 @@ fun sumSubMatrix(matrix: Matrix<Int>): Matrix<Int> {
     val matrn = createMatrix(matrix.height + 1, matrix.width + 1, 0)
     for (i in 1..matrix.height) {
         for (j in 1..matrix.width) {
-            matrn[i, j] = matrn[i - 1, j] + matrn[i,j - 1] - matrn[i - 1, j - 1] + matrix[i, j]
+            matrn[i, j] = matrn[i - 1, j] + matrn[i, j - 1] - matrn[i - 1, j - 1] + matrix[i - 1, j - 1]
             matrix[i - 1, j - 1] = matrn[i, j]
         }
     }
