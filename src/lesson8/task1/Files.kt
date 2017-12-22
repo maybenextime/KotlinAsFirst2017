@@ -59,12 +59,10 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     for (str in substrings) {
         val str1 = str.toLowerCase()
         var times = -1
-        var indexOfStr = 0
-        var index = -1
-        while (indexOfStr != -1) {
-            indexOfStr = text.indexOf(str1, index + 1)
+        var index = 0
+        while (index != -1) {
+            index = text.indexOf(str1, index + 1)
             times++
-            index = indexOfStr
         }
         result.put(str, times)
     }
@@ -117,9 +115,9 @@ fun sibilants(inputName: String, outputName: String) {
  * 4) Число строк в выходном файле должно быть равно числу строк во входном (в т. ч. пустых)
  *
  */
-fun maxLength(inputName: String): Int {
+fun maxLength(lines: List<String>): Int {
     var maxLength = -1
-    for (line in File(inputName).readLines())
+    for (line in lines)
         if (line.trim().length > maxLength) maxLength = line.trim().length
     return maxLength
 }
@@ -127,13 +125,12 @@ fun maxLength(inputName: String): Int {
 fun centerFile(inputName: String, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
     val lines = File(inputName).readLines()
-    val maxLength = maxLength(inputName)
+    val maxLength = maxLength(lines)
     for (line in lines) {
         val lineLength = line.trim().length
         for (i in 1..(maxLength - lineLength) / 2) outputStream.write(" ")
         outputStream.write(line.trim())
-        (lines.size != 1 && line != lines.last())
-            outputStream.newLine()
+        if (lines.size != 1 && line != lines.last()) outputStream.newLine()
     }
     outputStream.close()
 }
@@ -182,8 +179,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             while (maxLength > word.joinToString(separator = "").length) {
                 for (i in 0 until word.size - 1)
                     if (maxLength > word.joinToString(separator = "").length)
-                        if (maxLength > word.joinToString(separator = "").length)
-                            word[i] += " "
+                        word[i] += " "
             }
             string = word.joinToString(separator = "")
         } else string = line.trim()

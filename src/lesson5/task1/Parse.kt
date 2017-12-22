@@ -115,12 +115,9 @@ fun dateDigitToStr(digital: String): String {
             "10" -> "октября"
             "11" -> "ноября"
             "12" -> "декабря"
-            else -> ""
+            else -> return ""
         }
-        return when {
-            (s == "") -> ""
-            else -> String.format("%d %s %s", parts[0].toInt(), s, parts[2].toInt())
-        }
+        return String.format("%d %s %s", parts[0].toInt(), s, parts[2].toInt())
     } catch (e: NumberFormatException) {
         return ""
     }

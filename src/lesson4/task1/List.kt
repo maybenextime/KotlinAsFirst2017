@@ -159,7 +159,9 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Double>, b: List<Double>): Double {
     var result = 0.0
     if (a.size * b.size == 0) return 0.0
-    for (i in 0..min(a.size - 1, b.size - 1)) {
+    var size = 0
+    if (a.size == b.size) size = a.size else size = min(a.size, b.size)
+    for (i in 0..size - 1) {
         result += a[i] * b[i]
     }
     return result

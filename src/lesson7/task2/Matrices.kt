@@ -65,7 +65,7 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> {
     var t = 1
     var num = 1
     while (num <= height * width) {
-        for (j in t - 1 until width - t + 1) {
+        for (j in t - 1 until  width - t + 1) {
             result[t - 1, j] = num++
         }
         for (i in t until height - t + 1) {
